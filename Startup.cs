@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Framework.Models;
+using Framework.Data;
 
 namespace Framework
 {
@@ -27,7 +28,8 @@ namespace Framework
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FrameworkContext>(opt => opt.UseMySql(Configuration.GetConnectionString("FrameworkConnection")));
+            services.AddDbContext<FrameworkContext>();
+            services.AddScoped<IFrameworkRepo, SQLFrameworkRepo>();
             services.AddControllers();
         }
 

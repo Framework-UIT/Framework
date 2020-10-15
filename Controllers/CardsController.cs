@@ -12,7 +12,12 @@ namespace Framework.Controllers
     [ApiController]
     public class CardsController : ControllerBase
     {
-        private readonly MockFrameworkRepo _repo = new MockFrameworkRepo();
+        private readonly IFrameworkRepo _repo;
+        public CardsController(IFrameworkRepo repo)
+        {
+            _repo = repo;
+        }
+        // private readonly MockFrameworkRepo _repo = new MockFrameworkRepo();
         [HttpGet]
         public ActionResult<IEnumerable<Card>> GetAllCards()
         {
