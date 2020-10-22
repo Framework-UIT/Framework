@@ -31,5 +31,12 @@ namespace Framework.Controllers
             var cardItem = _repo.GetCardById(id);
             return Ok(cardItem);
         }
+
+        [HttpPost]
+        public ActionResult<Card> CreateCard(Card card)
+        {
+            _repo.CreateCard(card); 
+            return Ok(card);
+        }
     }
 }

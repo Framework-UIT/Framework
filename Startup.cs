@@ -31,6 +31,10 @@ namespace Framework
             services.AddDbContext<FrameworkContext>();
             services.AddScoped<IFrameworkRepo, SQLFrameworkRepo>();
             services.AddControllers();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,12 +49,17 @@ namespace Framework
 
             app.UseRouting();
 
+            app.UseCors(
+              options => options.SetIsOriginAllowed(x => _ = true).AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+          );
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            // app.UseCors(opt => opt.WithOrigins("https://localhost:8081").SetIsOriginAllowedToAllowWildcardSubdomains().AllowAnyHeader().AllowAnyMethod());
+
         }
     }
 }
