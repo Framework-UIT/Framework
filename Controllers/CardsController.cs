@@ -22,20 +22,25 @@ namespace Framework.Controllers
         public ActionResult<IEnumerable<Card>> GetAllCards()
         {
             var cardItems = _repo.GetCards();
-            return Ok(cardItems);
+            if (cardItems != null)
+                return Ok(cardItems);
+            return NotFound();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Card> GetCardById(int id)
         {
             var cardItem = _repo.GetCardById(id);
-            return Ok(cardItem);
+            if (cardItem != null)
+                return Ok(cardItem);
+            return NotFound();
         }
 
         [HttpPost]
         public ActionResult<Card> CreateCard(Card card)
         {
-            _repo.CreateCard(card); 
+            _repo.CreateCard(card);
+            _repo.SaveChanges();
             return Ok(card);
         }
     }

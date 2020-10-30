@@ -15,7 +15,7 @@ namespace Framework.Data
         }
         public IEnumerable<Card> GetCards()
         {
-            return _context.Cards.ToList();
+            return _context.Card.ToList();
         }
 
         public void CreateCard(Card card)
@@ -24,17 +24,16 @@ namespace Framework.Data
             {
                 throw new ArgumentNullException(nameof(card));
             }
-            _context.Cards.Add(card);
+            _context.Card.Add(card);
         }
         public Card GetCardById(int id)
         {
-            return _context.Cards.FirstOrDefault(c => c.Id == c.Id);
+            return _context.Card.FirstOrDefault(c => c.Id == c.Id);
         }
 
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
-
         }
 
     }
