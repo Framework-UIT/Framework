@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Framework.Models
 {
-    public partial class UserCard
+    public partial class Favorite
     {
-        public int UserCardId { get; set; }
+        public int FavoriteId { get; set; }
         public int UserId { get; set; }
-        public int CardId { get; set; }
+        public int SetId { get; set; }
     }
 }

@@ -3,19 +3,18 @@ using System.Collections.Generic;
 
 namespace Framework.Models
 {
-    public partial class Card
+    public partial class Set
     {
-        public Card()
+        public Set()
         {
             CardSet = new HashSet<CardSet>();
         }
 
-        public int CardId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImgUrl { get; set; }
-        public int CategoryId { get; set; }
+        public int SetId { get; set; }
+        public string SetName { get; set; }
         public int UserId { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
 
         public virtual ICollection<CardSet> CardSet { get; set; }
     }

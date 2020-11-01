@@ -7,9 +7,9 @@ namespace Framework.Data
 {
     public class SQLFrameworkRepo : IFrameworkRepo
     {
-        private readonly FrameworkContext _context;
+        private readonly prod_frameworkContext _context;
 
-        public SQLFrameworkRepo(FrameworkContext newContext)
+        public SQLFrameworkRepo(prod_frameworkContext newContext)
         {
             _context = newContext;
         }
@@ -28,7 +28,7 @@ namespace Framework.Data
         }
         public Card GetCardById(int id)
         {
-            return _context.Card.FirstOrDefault(c => c.Id == c.Id);
+            return _context.Card.FirstOrDefault(c => c.CardId == c.CardId);
         }
 
         public bool SaveChanges()

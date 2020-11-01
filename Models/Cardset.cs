@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace Framework.Models
 {
-    public partial class Cardset
+    public partial class CardSet
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public string CategoryId { get; set; }
+        public int CardSetId { get; set; }
+        public int CardId { get; set; }
+        public int SetId { get; set; }
+
+        public virtual Card Card { get; set; }
+        public virtual Set Set { get; set; }
     }
 }
