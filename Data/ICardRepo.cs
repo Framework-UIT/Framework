@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Framework.Models;
 namespace Framework.Data
 {
-    public interface IFrameworkRepo
+    public interface ICardRepo
     {
         bool SaveChanges();
         IEnumerable<Card> GetCards();

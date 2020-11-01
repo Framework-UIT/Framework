@@ -29,7 +29,7 @@ namespace Framework
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<prod_frameworkContext>();
-            services.AddScoped<IFrameworkRepo, SQLFrameworkRepo>();
+            services.AddScoped<ICardRepo, SQLFrameworkRepo>();
             services.AddControllers();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {

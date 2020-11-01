@@ -12,8 +12,8 @@ namespace Framework.Controllers
     [ApiController]
     public class CardsController : ControllerBase
     {
-        private readonly IFrameworkRepo _repo;
-        public CardsController(IFrameworkRepo repo)
+        private readonly ICardRepo _repo;
+        public CardsController(ICardRepo repo)
         {
             _repo = repo;
         }

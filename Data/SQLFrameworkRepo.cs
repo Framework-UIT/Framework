@@ -5,7 +5,7 @@ using System;
 
 namespace Framework.Data
 {
-    public class SQLFrameworkRepo : IFrameworkRepo
+    public class SQLFrameworkRepo : ICardRepo
     {
         private readonly prod_frameworkContext _context;
 
