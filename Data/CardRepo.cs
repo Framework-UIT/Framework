@@ -5,11 +5,11 @@ using System;
 
 namespace Framework.Data
 {
-    public class SQLFrameworkRepo : ICardRepo
+    public class CardRepo : ICardRepo
     {
         private readonly prod_frameworkContext _context;
 
-        public SQLFrameworkRepo(prod_frameworkContext newContext)
+        public CardRepo(prod_frameworkContext newContext)
         {
             _context = newContext;
         }
@@ -28,7 +28,7 @@ namespace Framework.Data
         }
         public Card GetCardById(int id)
         {
-            return _context.Card.FirstOrDefault(c => c.CardId == c.CardId);
+            return _context.Card.FirstOrDefault(c => c.CardId == id);
         }
 
         public bool SaveChanges()

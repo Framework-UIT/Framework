@@ -8,6 +8,7 @@ namespace Framework.Models
         public int TestResultId { get; set; }
         public int TestId { get; set; }
         public int UserId { get; set; }
+        public int SetId { get; set; }
         public int Score { get; set; }
         public DateTime TakenAt { get; set; }
     }

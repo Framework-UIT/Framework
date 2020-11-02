@@ -8,6 +8,7 @@ namespace Framework.Models
         public Set()
         {
             CardSet = new HashSet<CardSet>();
+            Test = new HashSet<Test>();
         }
 
         public int SetId { get; set; }
@@ -17,5 +18,6 @@ namespace Framework.Models
         public int Quantity { get; set; }
 
         public virtual ICollection<CardSet> CardSet { get; set; }
+        public virtual ICollection<Test> Test { get; set; }
     }
 }

@@ -44,23 +44,23 @@ namespace Framework.Models
                 entity.HasIndex(e => e.CategoryId)
                     .HasName("CategoryID");
 
+                entity.HasIndex(e => e.UserId)
+                    .HasName("card_ibfk_2");
+
                 entity.Property(e => e.CardId)
                     .HasColumnName("CardID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.CategoryId)
                     .HasColumnName("CategoryID")
                     .HasColumnType("int(5)");
 
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.ImgUrl)
-                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -71,9 +71,21 @@ namespace Framework.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
+                entity.Property(e => e.Pronun)
+                    .HasColumnName("pronun")
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")
                     .HasColumnType("int(5)");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Card)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("card_ibfk_2");
             });
 
             modelBuilder.Entity<CardSet>(entity =>
@@ -81,10 +93,10 @@ namespace Framework.Models
                 entity.ToTable("card_set");
 
                 entity.HasIndex(e => e.CardId)
-                    .HasName("cardset_ibfk_2");
+                    .HasName("cardset_ibfk_1");
 
                 entity.HasIndex(e => e.SetId)
-                    .HasName("cardset_ibfk_1");
+                    .HasName("cardset_ibfk_2");
 
                 entity.Property(e => e.CardSetId)
                     .HasColumnName("CardSetID")
@@ -102,13 +114,13 @@ namespace Framework.Models
                     .WithMany(p => p.CardSet)
                     .HasForeignKey(d => d.CardId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cardset_ibfk_2");
+                    .HasConstraintName("cardset_ibfk_1");
 
                 entity.HasOne(d => d.Set)
                     .WithMany(p => p.CardSet)
                     .HasForeignKey(d => d.SetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cardset_ibfk_1");
+                    .HasConstraintName("cardset_ibfk_2");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -117,12 +129,10 @@ namespace Framework.Models
 
                 entity.Property(e => e.CategoryId)
                     .HasColumnName("CategoryID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasColumnType("varchar(255)")
+                    .HasColumnType("varchar(1000)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
@@ -146,8 +156,7 @@ namespace Framework.Models
 
                 entity.Property(e => e.FavoriteId)
                     .HasColumnName("FavoriteID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.SetId)
                     .HasColumnName("SetID")
@@ -167,8 +176,7 @@ namespace Framework.Models
 
                 entity.Property(e => e.SetId)
                     .HasColumnName("SetID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -193,10 +201,15 @@ namespace Framework.Models
             {
                 entity.ToTable("test");
 
+                entity.HasIndex(e => e.SetId)
+                    .HasName("test_ibfk_2");
+
+                entity.HasIndex(e => e.TypeId)
+                    .HasName("test_ibfk_1");
+
                 entity.Property(e => e.TestId)
                     .HasColumnName("TestID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.SetId)
                     .HasColumnName("SetID")
@@ -205,11 +218,26 @@ namespace Framework.Models
                 entity.Property(e => e.TypeId)
                     .HasColumnName("TypeID")
                     .HasColumnType("int(5)");
+
+                entity.HasOne(d => d.Set)
+                    .WithMany(p => p.Test)
+                    .HasForeignKey(d => d.SetId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("test_ibfk_2");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.Test)
+                    .HasForeignKey(d => d.TypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("test_ibfk_1");
             });
 
             modelBuilder.Entity<TestResult>(entity =>
             {
                 entity.ToTable("test_result");
+
+                entity.HasIndex(e => e.SetId)
+                    .HasName("SetID");
 
                 entity.HasIndex(e => e.TestId)
                     .HasName("TestID");
@@ -219,10 +247,13 @@ namespace Framework.Models
 
                 entity.Property(e => e.TestResultId)
                     .HasColumnName("TestResultID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.Score).HasColumnType("int(50)");
+
+                entity.Property(e => e.SetId)
+                    .HasColumnName("SetID")
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.TakenAt).HasColumnType("datetime");
 
@@ -244,8 +275,7 @@ namespace Framework.Models
 
                 entity.Property(e => e.TypeId)
                     .HasColumnName("TypeID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.TypeName)
                     .IsRequired()
@@ -260,8 +290,7 @@ namespace Framework.Models
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -286,10 +315,15 @@ namespace Framework.Models
             {
                 entity.ToTable("user_card");
 
+                entity.HasIndex(e => e.CardId)
+                    .HasName("usercard_ibfk_2");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("usercard_ibfk_1");
+
                 entity.Property(e => e.UserCardId)
                     .HasColumnName("UserCardID")
-                    .HasColumnType("int(5)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(5)");
 
                 entity.Property(e => e.CardId)
                     .HasColumnName("CardID")
@@ -298,6 +332,18 @@ namespace Framework.Models
                 entity.Property(e => e.UserId)
                     .HasColumnName("UserID")
                     .HasColumnType("int(5)");
+
+                entity.HasOne(d => d.Card)
+                    .WithMany(p => p.UserCard)
+                    .HasForeignKey(d => d.CardId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("usercard_ibfk_2");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserCard)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("usercard_ibfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -8,5 +8,8 @@ namespace Framework.Models
         public int TestId { get; set; }
         public int TypeId { get; set; }
         public int SetId { get; set; }
+
+        public virtual Set Set { get; set; }
+        public virtual TestType Type { get; set; }
     }
 }
