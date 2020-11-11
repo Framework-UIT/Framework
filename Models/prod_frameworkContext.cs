@@ -298,11 +298,13 @@ namespace Framework.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.PasswordHash)
                     .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
+                    .HasColumnType("blob");
+
+                entity.Property(e => e.PasswordSalt)
+                    .IsRequired()
+                    .HasColumnType("blob");
 
                 entity.Property(e => e.Username)
                     .IsRequired()
