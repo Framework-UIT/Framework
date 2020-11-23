@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Framework.Models
 {
@@ -16,7 +17,7 @@ namespace Framework.Models
         public string Email { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<Card> Card { get; set; }
         public virtual ICollection<UserCard> UserCard { get; set; }
     }

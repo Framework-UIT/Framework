@@ -38,6 +38,7 @@ namespace Framework
             services.AddScoped<ICardRepo, CardRepo>();
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<ISetRepo, SetRepo>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>

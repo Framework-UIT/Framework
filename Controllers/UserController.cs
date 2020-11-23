@@ -15,7 +15,7 @@ namespace Framework.Controllers
 {
     [Microsoft.AspNetCore.Authorization.Authorize]
     [ApiController]
-    [Route("/api/user")]
+    [Route("/api/users")]
     public class UserController : ControllerBase
     {
         private IUserRepo _repo;
@@ -27,6 +27,15 @@ namespace Framework.Controllers
             _repo = newRepo;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<User>> GetAllUser()
+        {
+            var users = _repo.GetAll();
+            if (users != null)
+                return Ok(users);
+            return NotFound();
         }
 
         [AllowAnonymous]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Framework.Models
 {
@@ -19,8 +20,13 @@ namespace Framework.Models
         public int UserId { get; set; }
         public string Pronun { get; set; }
 
+        [JsonIgnore]
+        public virtual Category Category { get; set; }
+        [JsonIgnore]
         public virtual User User { get; set; }
+        [JsonIgnore]
         public virtual ICollection<CardSet> CardSet { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserCard> UserCard { get; set; }
     }
 }
